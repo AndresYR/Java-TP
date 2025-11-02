@@ -34,5 +34,18 @@ public class InputUtils {
         return input;
     }
 
+    public static boolean inputBoolean(String msj) {
+        while (true) {
+            String input = inputTexto(msj + "(s/n)").toLowerCase();
+            if (input == "s") {
+                return true;
+            } else if (input == "n") {
+                return false;
+            } else {
+                System.out.println("Ingrese una opción válida");
+            }
+
+        }
+    }
 
 }

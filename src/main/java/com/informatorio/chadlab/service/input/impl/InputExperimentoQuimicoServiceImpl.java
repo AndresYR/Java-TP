@@ -18,17 +18,15 @@ public class InputExperimentoQuimicoServiceImpl implements InputExperimentoQuimi
     @Override
     public void inputExperimentoQuimico(Investigador investigador) {
 
-        //Harcodeo por el momento
-        String nombre = "Exp quim 1";
+        String nombre = InputUtils.inputTexto("Ingrese el nombre del experimento:");
 
-        int duracion = 45;
+        int duracion = InputUtils.inputIntPositivo("Ingrese la duración en minutos del experimento:");
 
-        boolean exitoso = true;
+        boolean exitoso = InputUtils.inputBoolean("El experimento fue exitoso?");
 
-        String reactivo = "hidrogeno";
+        String reactivo = InputUtils.inputTexto("Ingrese el nombre del reactivo");
 
-        this.experimentoRepository.guardar(new ExperimentoQuimico(nombre, duracion,
-                exitoso, reactivo, investigador));
+        this.experimentoRepository.guardar(new ExperimentoQuimico(nombre, duracion, exitoso, reactivo, investigador));
 
     }
 }
