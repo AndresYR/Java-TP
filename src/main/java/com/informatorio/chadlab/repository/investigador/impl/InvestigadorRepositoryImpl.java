@@ -27,6 +27,14 @@ public class InvestigadorRepositoryImpl implements InvestigadorRepository {
         return this.getInvestigadores();
     }
 
+    @Override
+    public Investigador buscarInvestigadorPorNombre(String nombre) {
+        return  investigadores.stream()
+                .filter(investigador -> nombre.equalsIgnoreCase(investigador.getNombre()))
+                .findFirst()
+                .orElse(null);
+    }
+
     //Getters
     public List<Investigador> getInvestigadores() {
         return investigadores;

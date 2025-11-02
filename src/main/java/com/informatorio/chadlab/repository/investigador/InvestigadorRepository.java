@@ -11,4 +11,6 @@ public interface InvestigadorRepository {
     Investigador guardar(String nombre, int edad);
 
     List<Investigador> obtenerInvestigadores();
+
+    Investigador buscarInvestigadorPorNombre(String nombre);
 }
