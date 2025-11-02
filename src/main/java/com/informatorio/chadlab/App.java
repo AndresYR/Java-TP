@@ -1,18 +1,15 @@
 package com.informatorio.chadlab;
 
-import com.informatorio.chadlab.repository.investigador.InvestigadorRepository;
-import com.informatorio.chadlab.repository.investigador.impl.InvestigadorRepositoryImpl;
-import com.informatorio.chadlab.service.input.InputInvestigadorService;
-import com.informatorio.chadlab.service.input.impl.InputInvestigadorServiceImpl;
+import com.informatorio.chadlab.service.menu.MenuService;
+import com.informatorio.chadlab.service.menu.impl.MenuServiceImpl;
 
 
 public class App 
 {
     public static void main( String[] args )
     {
-        InvestigadorRepository investigadorRepository = new InvestigadorRepositoryImpl();
-        InputInvestigadorService inputInvestigadorService = new InputInvestigadorServiceImpl(investigadorRepository);
 
-        inputInvestigadorService.inputInvestigador();
+        MenuService menuService = new MenuServiceImpl();
+        menuService.seleccionar();
     }
 }
