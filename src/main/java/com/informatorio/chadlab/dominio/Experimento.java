@@ -5,6 +5,7 @@ public abstract class Experimento {
     private int duracion;
     private boolean exitoso;
 
+
     //Constructur
     public Experimento(String nombre, int duracion, boolean exitoso) {
         this.nombre = nombre;

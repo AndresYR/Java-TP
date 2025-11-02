@@ -9,6 +9,7 @@ public class InputInvestigadorServiceImpl implements InputInvestigadorService {
 
     private InvestigadorRepository investigadorRepository;
 
+    //Constructor
     public InputInvestigadorServiceImpl(InvestigadorRepository investigadorRepository) {
         this.investigadorRepository = investigadorRepository;
     }
