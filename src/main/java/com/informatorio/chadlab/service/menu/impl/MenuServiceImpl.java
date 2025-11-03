@@ -9,6 +9,8 @@ import com.informatorio.chadlab.service.input.InputExperimentoQuimicoService;
 import com.informatorio.chadlab.service.input.InputInvestigadorService;
 import com.informatorio.chadlab.service.input.impl.InputExperimentoQuimicoServiceImpl;
 import com.informatorio.chadlab.service.input.impl.InputInvestigadorServiceImpl;
+import com.informatorio.chadlab.service.investigador.InvestigadorService;
+import com.informatorio.chadlab.service.investigador.impl.InvestigadorServiceImpl;
 import com.informatorio.chadlab.service.menu.MenuService;
 import com.informatorio.chadlab.utils.InputUtils;
 
@@ -25,6 +27,7 @@ public class MenuServiceImpl implements MenuService {
     InputInvestigadorService inputInvestigadorService = new InputInvestigadorServiceImpl(investigadorRepository);
     ExperimentoRepository experimentoRepository = new ExperimentoRepositoryImpl();
     InputExperimentoQuimicoService inputExperimentoQuimicoService = new InputExperimentoQuimicoServiceImpl(experimentoRepository);
+    InvestigadorService investigadorService = new InvestigadorServiceImpl();
 
     @Override
     public void seleccionar() {
@@ -41,7 +44,7 @@ public class MenuServiceImpl implements MenuService {
             opcion = InputUtils.inputIntPositivo("");
             this.ejecutar(opcion);
 
-        } while (opcion != 5);
+        } while (opcion != SALIR);
     }
 
     private void ejecutar(int opcion) {
@@ -53,17 +56,8 @@ public class MenuServiceImpl implements MenuService {
             }
 
             case REGISTRAR_EXPERIMENTO -> {
-                while (true) {
-                    String nombreInvestigador = InputUtils.inputTexto("Ingrese el nombre del investigador");
-                    Investigador investigadorFiltrado = investigadorRepository.buscarInvestigadorPorNombre(nombreInvestigador);
-                    if (investigadorFiltrado != null) {
-                        inputExperimentoQuimicoService.inputExperimentoQuimico(investigadorFiltrado);
-                        break;
-                    } else {
-                        System.out.println("El nombre ingresado no existe. Intente nuevamente");
-                    }
-                }
-
+                Investigador investigadorFiltrado = investigadorService.obtenerInvestigadorValido(investigadorRepository);
+                inputExperimentoQuimicoService.inputExperimentoQuimico(investigadorFiltrado);
             }
 
             case MOSTRAR_INVESTIGADORES -> {
