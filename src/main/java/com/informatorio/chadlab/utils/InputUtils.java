@@ -36,10 +36,10 @@ public class InputUtils {
 
     public static boolean inputBoolean(String msj) {
         while (true) {
-            String input = inputTexto(msj + "(s/n)").toLowerCase();
-            if (input == "s") {
+            String input = inputTexto(msj + "(s/n)").trim().toLowerCase();
+            if (input.equalsIgnoreCase("s")) {
                 return true;
-            } else if (input == "n") {
+            } else if (input.equalsIgnoreCase("n")) {
                 return false;
             } else {
                 System.out.println("Ingrese una opción válida");
