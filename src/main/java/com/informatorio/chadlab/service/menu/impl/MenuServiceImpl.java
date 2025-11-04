@@ -5,13 +5,16 @@ import com.informatorio.chadlab.repository.experimento.ExperimentoRepository;
 import com.informatorio.chadlab.repository.experimento.impl.ExperimentoRepositoryImpl;
 import com.informatorio.chadlab.repository.investigador.InvestigadorRepository;
 import com.informatorio.chadlab.repository.investigador.impl.InvestigadorRepositoryImpl;
+import com.informatorio.chadlab.service.input.InputExperimentoFisicoService;
 import com.informatorio.chadlab.service.input.InputExperimentoQuimicoService;
 import com.informatorio.chadlab.service.input.InputInvestigadorService;
+import com.informatorio.chadlab.service.input.impl.InputExperimentoFisicoServiceImpl;
 import com.informatorio.chadlab.service.input.impl.InputExperimentoQuimicoServiceImpl;
 import com.informatorio.chadlab.service.input.impl.InputInvestigadorServiceImpl;
 import com.informatorio.chadlab.service.investigador.InvestigadorService;
 import com.informatorio.chadlab.service.investigador.impl.InvestigadorServiceImpl;
 import com.informatorio.chadlab.service.menu.MenuService;
+import com.informatorio.chadlab.service.menu.SubMenuService;
 import com.informatorio.chadlab.utils.InputUtils;
 
 import java.util.List;
@@ -27,7 +30,9 @@ public class MenuServiceImpl implements MenuService {
     InputInvestigadorService inputInvestigadorService = new InputInvestigadorServiceImpl(investigadorRepository);
     ExperimentoRepository experimentoRepository = new ExperimentoRepositoryImpl();
     InputExperimentoQuimicoService inputExperimentoQuimicoService = new InputExperimentoQuimicoServiceImpl(experimentoRepository);
+    InputExperimentoFisicoService inputExperimentoFisicoService = new InputExperimentoFisicoServiceImpl(experimentoRepository);
     InvestigadorService investigadorService = new InvestigadorServiceImpl();
+    SubMenuService subMenuService = new SubMenuServiceImpl(investigadorService, inputExperimentoQuimicoService, inputExperimentoFisicoService);
 
     @Override
     public void seleccionar() {
@@ -56,8 +61,9 @@ public class MenuServiceImpl implements MenuService {
             }
 
             case REGISTRAR_EXPERIMENTO -> {
-                Investigador investigadorFiltrado = investigadorService.obtenerInvestigadorValido(investigadorRepository);
-                inputExperimentoQuimicoService.inputExperimentoQuimico(investigadorFiltrado);
+//                Investigador investigadorFiltrado = investigadorService.obtenerInvestigadorValido(investigadorRepository);
+//                inputExperimentoQuimicoService.inputExperimentoQuimico(investigadorFiltrado);
+                subMenuService.subMenuRegistrarExperimento(investigadorRepository);
             }
 
             case MOSTRAR_INVESTIGADORES -> {
