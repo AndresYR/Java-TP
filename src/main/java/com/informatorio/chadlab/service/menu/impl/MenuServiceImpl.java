@@ -1,5 +1,6 @@
 package com.informatorio.chadlab.service.menu.impl;
 
+import com.informatorio.chadlab.dominio.Experimento;
 import com.informatorio.chadlab.dominio.Investigador;
 import com.informatorio.chadlab.repository.experimento.ExperimentoRepository;
 import com.informatorio.chadlab.repository.experimento.impl.ExperimentoRepositoryImpl;
@@ -27,7 +28,9 @@ public class MenuServiceImpl implements MenuService {
     public static final int REGISTRAR_EXPERIMENTO = 2;
     public static final int MOSTRAR_INVESTIGADORES = 3;
     public static final int MOSTRAR_EXPERIMENTOS = 4;
-    public static final int SALIR = 5;
+    public static final int MOSTRAR_ESTADISTICAS = 5;
+    public static final int MOSTRAR_EXPERIMENTO_MAYOR_DURACION = 6;
+    public static final int SALIR = 9;
 
     InvestigadorRepository investigadorRepository = new InvestigadorRepositoryImpl();
     InputInvestigadorService inputInvestigadorService = new InputInvestigadorServiceImpl(investigadorRepository);
@@ -35,7 +38,7 @@ public class MenuServiceImpl implements MenuService {
     InputExperimentoQuimicoService inputExperimentoQuimicoService = new InputExperimentoQuimicoServiceImpl(experimentoRepository);
     InputExperimentoFisicoService inputExperimentoFisicoService = new InputExperimentoFisicoServiceImpl(experimentoRepository);
     InvestigadorService investigadorService = new InvestigadorServiceImpl();
-    ExperimentoService experimentoService = new ExperimentoServiceImpl();
+    ExperimentoService experimentoService = new ExperimentoServiceImpl(experimentoRepository);
     SubMenuService subMenuService = new SubMenuServiceImpl(investigadorService, inputExperimentoQuimicoService, inputExperimentoFisicoService);
 
     @Override
@@ -49,7 +52,9 @@ public class MenuServiceImpl implements MenuService {
             System.out.println("2 - Registrar experimento");
             System.out.println("3 - Mostrar investigadores");
             System.out.println("4 - Mostrar experimentos");
-            System.out.println("5 - Salir");
+            System.out.println("5 - Mostrar estadísticas");
+            System.out.println("6 - Mostrar experimento de mayor duración");
+            System.out.println("9 - Salir");
 
             opcion = InputUtils.inputIntPositivo("");
             this.ejecutar(opcion);
@@ -77,7 +82,23 @@ public class MenuServiceImpl implements MenuService {
             }
 
             case MOSTRAR_EXPERIMENTOS -> {
-                experimentoService.mostrarExperimentos(experimentoRepository);
+                experimentoService.mostrarExperimentos();
+            }
+
+            case MOSTRAR_ESTADISTICAS -> {
+                experimentoService.mostrarEstadisticas();
+            }
+
+            case MOSTRAR_EXPERIMENTO_MAYOR_DURACION -> {
+                Experimento mayorDuracion = experimentoService.mayorDuracion();
+                if (mayorDuracion != null) {
+                    System.out.println("EXPERIMENTO DE MAYOR DURACION");
+                    System.out.printf("Tipo: %s - Nombre: %s - Duración: %d - Exito: %b%n",
+                            mayorDuracion.getTipo(),
+                            mayorDuracion.getNombre(),
+                            mayorDuracion.getDuracion(),
+                            mayorDuracion.isExitoso());
+                }
             }
 
             case SALIR -> {

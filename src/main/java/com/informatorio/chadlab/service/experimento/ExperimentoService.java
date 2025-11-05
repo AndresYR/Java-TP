@@ -1,7 +1,12 @@
 package com.informatorio.chadlab.service.experimento;
 
-import com.informatorio.chadlab.repository.experimento.ExperimentoRepository;
+import com.informatorio.chadlab.dominio.Experimento;
 
 public interface ExperimentoService {
-    void mostrarExperimentos(ExperimentoRepository experimentoRepository);
+
+    void mostrarExperimentos();
+
+    void mostrarEstadisticas();
+
+    Experimento mayorDuracion();
 }

@@ -75,6 +75,8 @@ public class SubMenuServiceImpl implements SubMenuService {
             case VOLVER -> {
                 break;
             }
+
+            default -> System.out.println("Ingrese una opción válida");
         }
 
     }
