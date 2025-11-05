@@ -4,6 +4,7 @@ public abstract class Experimento {
     private String nombre;
     private int duracion;
     private boolean exitoso;
+    private String tipo;
 
 
     //Constructur
@@ -26,5 +27,9 @@ public abstract class Experimento {
 
     public boolean isExitoso() {
         return exitoso;
+    }
+
+    public String getTipo() {
+        return tipo;
     }
 }

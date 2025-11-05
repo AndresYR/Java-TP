@@ -5,6 +5,8 @@ import com.informatorio.chadlab.repository.experimento.ExperimentoRepository;
 import com.informatorio.chadlab.repository.experimento.impl.ExperimentoRepositoryImpl;
 import com.informatorio.chadlab.repository.investigador.InvestigadorRepository;
 import com.informatorio.chadlab.repository.investigador.impl.InvestigadorRepositoryImpl;
+import com.informatorio.chadlab.service.experimento.ExperimentoService;
+import com.informatorio.chadlab.service.experimento.impl.ExperimentoServiceImpl;
 import com.informatorio.chadlab.service.input.InputExperimentoFisicoService;
 import com.informatorio.chadlab.service.input.InputExperimentoQuimicoService;
 import com.informatorio.chadlab.service.input.InputInvestigadorService;
@@ -24,6 +26,7 @@ public class MenuServiceImpl implements MenuService {
     public static final int REGISTRAR_INVESTIGADOR = 1;
     public static final int REGISTRAR_EXPERIMENTO = 2;
     public static final int MOSTRAR_INVESTIGADORES = 3;
+    public static final int MOSTRAR_EXPERIMENTOS = 4;
     public static final int SALIR = 5;
 
     InvestigadorRepository investigadorRepository = new InvestigadorRepositoryImpl();
@@ -32,6 +35,7 @@ public class MenuServiceImpl implements MenuService {
     InputExperimentoQuimicoService inputExperimentoQuimicoService = new InputExperimentoQuimicoServiceImpl(experimentoRepository);
     InputExperimentoFisicoService inputExperimentoFisicoService = new InputExperimentoFisicoServiceImpl(experimentoRepository);
     InvestigadorService investigadorService = new InvestigadorServiceImpl();
+    ExperimentoService experimentoService = new ExperimentoServiceImpl();
     SubMenuService subMenuService = new SubMenuServiceImpl(investigadorService, inputExperimentoQuimicoService, inputExperimentoFisicoService);
 
     @Override
@@ -44,6 +48,7 @@ public class MenuServiceImpl implements MenuService {
             System.out.println("1 - Registrar investigador");
             System.out.println("2 - Registrar experimento");
             System.out.println("3 - Mostrar investigadores");
+            System.out.println("4 - Mostrar experimentos");
             System.out.println("5 - Salir");
 
             opcion = InputUtils.inputIntPositivo("");
@@ -61,8 +66,6 @@ public class MenuServiceImpl implements MenuService {
             }
 
             case REGISTRAR_EXPERIMENTO -> {
-//                Investigador investigadorFiltrado = investigadorService.obtenerInvestigadorValido(investigadorRepository);
-//                inputExperimentoQuimicoService.inputExperimentoQuimico(investigadorFiltrado);
                 subMenuService.subMenuRegistrarExperimento(investigadorRepository);
             }
 
@@ -71,6 +74,14 @@ public class MenuServiceImpl implements MenuService {
                 for (int i = 0; i < investigadores.size(); i++) {
                     System.out.println(i+1 + " - " + investigadores.get(i).getNombre());
                 }
+            }
+
+            case MOSTRAR_EXPERIMENTOS -> {
+                experimentoService.mostrarExperimentos(experimentoRepository);
+            }
+
+            case SALIR -> {
+                System.out.println("Hasta luego!");
             }
 
             default -> System.out.println("Ingrese una opción válida");
