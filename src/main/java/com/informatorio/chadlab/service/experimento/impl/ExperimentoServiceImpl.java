@@ -6,6 +6,8 @@ import com.informatorio.chadlab.service.experimento.ExperimentoService;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.OptionalDouble;
+import java.util.stream.IntStream;
 
 public class ExperimentoServiceImpl implements ExperimentoService {
 
@@ -86,5 +88,31 @@ public class ExperimentoServiceImpl implements ExperimentoService {
         System.out.println("Aún no hay experimentos registrados\n");
         return null;
     }
+
+    @Override
+    public void reporte() {
+        List<Experimento> experimentos = this.experimentoRepository.obtenerExperimentos();
+
+        if (!experimentos.isEmpty()) {
+            int experimentosExitosos = contarExperimentosExitosos(experimentos);
+            double promedio = this.duracionPromedio(experimentos);
+
+            System.out.printf("La duración promedio de los experimentos es de %.2f minutos%n", promedio);
+            System.out.printf("El porcentaje de exito global es de %.2f%%%n",
+                    (double) experimentosExitosos*100/experimentos.size());
+
+
+        } else {
+            System.out.println("Aún no hay experimentos registrados\n");
+        }
+    }
+
+    private double duracionPromedio(List<Experimento> experimentos) {
+        IntStream duracionStream = experimentos.stream()
+                .mapToInt(Experimento::getDuracion);
+        OptionalDouble promedio = duracionStream.average();
+        return promedio.getAsDouble();
+    }
+
 
 }

@@ -9,4 +9,6 @@ public interface ExperimentoService {
     void mostrarEstadisticas();
 
     Experimento mayorDuracion();
+
+    void reporte();
 }

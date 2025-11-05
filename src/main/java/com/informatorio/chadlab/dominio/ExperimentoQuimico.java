@@ -13,6 +13,16 @@ public class ExperimentoQuimico extends Experimento{
         this.tipo = "Químico";
     }
 
+    @Override
+    public String toString() {
+        return String.format("%-20s%-40s%-20d%-20s%-20s",
+                this.getTipo(),
+                this.getNombre(),
+                this.getDuracion(),
+                this.isExitoso(),
+                this.getReactivo());
+    }
+
     //Getters
     public String getReactivo() {
         return reactivo;

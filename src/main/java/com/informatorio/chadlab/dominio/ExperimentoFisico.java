@@ -14,6 +14,16 @@ public class ExperimentoFisico extends Experimento{
         this.tipo = "Físico";
     }
 
+    @Override
+    public String toString() {
+        return String.format("%-20s%-40s%-20d%-20s%-20s",
+                this.getTipo(),
+                this.getNombre(),
+                this.getDuracion(),
+                this.isExitoso(),
+                this.getInstrumento());
+    }
+
     //Getters
     public String getInstrumento() {
         return instrumento;
