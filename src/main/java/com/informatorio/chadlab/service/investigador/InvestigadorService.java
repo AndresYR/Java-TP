@@ -5,6 +5,8 @@ import com.informatorio.chadlab.repository.investigador.InvestigadorRepository;
 
 public interface InvestigadorService {
 
-    Investigador obtenerInvestigadorValido(InvestigadorRepository investigadorRepository);
+    Investigador obtenerInvestigadorValido();
+
+    Investigador mayorCantidadExperimentos();
 
 }

@@ -29,5 +29,9 @@ public class InputExperimentoFisicoServiceImpl implements InputExperimentoFisico
 
         this.experimentoRepository.guardar(new ExperimentoFisico(nombre, duracion, exitoso, instrumento, investigadores));
 
+        for (Investigador investigador : investigadores) {
+            investigador.aumentarCantidadExperimentos();
+        }
+
     }
 }

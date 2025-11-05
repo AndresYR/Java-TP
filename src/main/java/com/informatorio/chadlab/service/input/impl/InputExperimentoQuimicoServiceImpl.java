@@ -28,5 +28,7 @@ public class InputExperimentoQuimicoServiceImpl implements InputExperimentoQuimi
 
         this.experimentoRepository.guardar(new ExperimentoQuimico(nombre, duracion, exitoso, reactivo, investigador));
 
+        investigador.aumentarCantidadExperimentos();
+
     }
 }

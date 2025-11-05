@@ -31,6 +31,7 @@ public class MenuServiceImpl implements MenuService {
     public static final int MOSTRAR_ESTADISTICAS = 5;
     public static final int MOSTRAR_EXPERIMENTO_MAYOR_DURACION = 6;
     public static final int REPORTE_CONSOLA = 7;
+    public static final int MOSTRAR_INVESTIGADOR_MAS_EXPERIMENTOS = 8;
     public static final int SALIR = 9;
 
     InvestigadorRepository investigadorRepository = new InvestigadorRepositoryImpl();
@@ -38,7 +39,7 @@ public class MenuServiceImpl implements MenuService {
     ExperimentoRepository experimentoRepository = new ExperimentoRepositoryImpl();
     InputExperimentoQuimicoService inputExperimentoQuimicoService = new InputExperimentoQuimicoServiceImpl(experimentoRepository);
     InputExperimentoFisicoService inputExperimentoFisicoService = new InputExperimentoFisicoServiceImpl(experimentoRepository);
-    InvestigadorService investigadorService = new InvestigadorServiceImpl();
+    InvestigadorService investigadorService = new InvestigadorServiceImpl(investigadorRepository);
     ExperimentoService experimentoService = new ExperimentoServiceImpl(experimentoRepository);
     SubMenuService subMenuService = new SubMenuServiceImpl(investigadorService, inputExperimentoQuimicoService, inputExperimentoFisicoService);
 
@@ -56,6 +57,7 @@ public class MenuServiceImpl implements MenuService {
             System.out.println("5 - Mostrar estadísticas");
             System.out.println("6 - Mostrar experimento de mayor duración");
             System.out.println("7 - Generar reporte de experimentos por consola");
+            System.out.println("8 - Mostrar investigador con más experimentos");
             System.out.println("9 - Salir");
 
             opcion = InputUtils.inputIntPositivo("");
@@ -73,7 +75,7 @@ public class MenuServiceImpl implements MenuService {
             }
 
             case REGISTRAR_EXPERIMENTO -> {
-                subMenuService.subMenuRegistrarExperimento(investigadorRepository);
+                subMenuService.subMenuRegistrarExperimento();
             }
 
             case MOSTRAR_INVESTIGADORES -> {
@@ -105,6 +107,11 @@ public class MenuServiceImpl implements MenuService {
 
             case REPORTE_CONSOLA -> {
                 experimentoService.reporte();
+            }
+
+            case MOSTRAR_INVESTIGADOR_MAS_EXPERIMENTOS -> {
+                System.out.println("El investigador con mayor cantidad de experimentos es:");
+                System.out.println(investigadorService.mayorCantidadExperimentos());
             }
 
 

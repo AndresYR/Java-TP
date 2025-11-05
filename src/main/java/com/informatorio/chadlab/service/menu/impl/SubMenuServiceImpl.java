@@ -1,7 +1,6 @@
 package com.informatorio.chadlab.service.menu.impl;
 
 import com.informatorio.chadlab.dominio.Investigador;
-import com.informatorio.chadlab.repository.investigador.InvestigadorRepository;
 import com.informatorio.chadlab.service.input.InputExperimentoFisicoService;
 import com.informatorio.chadlab.service.input.InputExperimentoQuimicoService;
 import com.informatorio.chadlab.service.investigador.InvestigadorService;
@@ -30,7 +29,7 @@ public class SubMenuServiceImpl implements SubMenuService {
     }
 
     @Override
-    public void subMenuRegistrarExperimento(InvestigadorRepository investigadorRepository) {
+    public void subMenuRegistrarExperimento() {
 
         int opcion = 0;
 
@@ -41,16 +40,16 @@ public class SubMenuServiceImpl implements SubMenuService {
             System.out.println("3 - Volver al menu inicial");
             
             opcion = InputUtils.inputIntPositivo("");
-            this.ejecutar(opcion, investigadorRepository);
+            this.ejecutar(opcion);
 
         } while (opcion != VOLVER);
     }
 
-    private void ejecutar(int opcion,InvestigadorRepository investigadorRepository) {
+    private void ejecutar(int opcion) {
 
         switch (opcion) {
             case REGISTRAR_EXPERIMENTO_QUIMICO -> {
-                Investigador investigadorFiltrado = investigadorService.obtenerInvestigadorValido(investigadorRepository);
+                Investigador investigadorFiltrado = investigadorService.obtenerInvestigadorValido();
                 inputExperimentoQuimicoService.inputExperimentoQuimico(investigadorFiltrado);
             }
 
@@ -61,7 +60,7 @@ public class SubMenuServiceImpl implements SubMenuService {
 
                     if (cantInvestigadores != 0) {
                         for (int i = 0; i < cantInvestigadores; i++) {
-                            investigadores.add(investigadorService.obtenerInvestigadorValido(investigadorRepository));
+                            investigadores.add(investigadorService.obtenerInvestigadorValido());
                         }
                         inputExperimentoFisicoService.inputExperimentoFisico(investigadores);
                         break;
