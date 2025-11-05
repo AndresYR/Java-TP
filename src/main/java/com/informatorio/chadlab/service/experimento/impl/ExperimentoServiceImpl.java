@@ -24,15 +24,10 @@ public class ExperimentoServiceImpl implements ExperimentoService {
 
         if (!experimentos.isEmpty()) {
             System.out.println("LISTADO DE EXPERIMENTOS\n");
-            System.out.printf("%-20s%-40s%-20s%-20s%n","Tipo","Nombre", "Duración", "Exito");
+            System.out.printf("%-20s%-40s%-20s%-20s%-30s%n","Tipo","Nombre", "Duración", "Exito", "Reactivo/Instrumento");
 
             for (Experimento experimento : experimentos) {
-                String exito = (experimento.isExitoso()) ? "Si":"No";
-                System.out.printf("%-20s%-40s%-20d%-20s%n",
-                        experimento.getTipo(),
-                        experimento.getNombre(),
-                        experimento.getDuracion(),
-                        exito);
+                System.out.println(experimento.toString());
             }
             System.out.println("\n\n");
         } else {
