@@ -6,6 +6,8 @@ import com.informatorio.chadlab.repository.experimento.ExperimentoRepository;
 import com.informatorio.chadlab.repository.experimento.impl.ExperimentoRepositoryImpl;
 import com.informatorio.chadlab.repository.investigador.InvestigadorRepository;
 import com.informatorio.chadlab.repository.investigador.impl.InvestigadorRepositoryImpl;
+import com.informatorio.chadlab.service.archivos.ArchivosInvestigadoresService;
+import com.informatorio.chadlab.service.archivos.impl.ArchivosInvestigadoresServiceImpl;
 import com.informatorio.chadlab.service.experimento.ExperimentoService;
 import com.informatorio.chadlab.service.experimento.impl.ExperimentoServiceImpl;
 import com.informatorio.chadlab.service.input.InputExperimentoFisicoService;
@@ -32,7 +34,8 @@ public class MenuServiceImpl implements MenuService {
     public static final int MOSTRAR_EXPERIMENTO_MAYOR_DURACION = 6;
     public static final int REPORTE_CONSOLA = 7;
     public static final int MOSTRAR_INVESTIGADOR_MAS_EXPERIMENTOS = 8;
-    public static final int SALIR = 9;
+    public static final int EXPORTAR_INVESTIGADORES = 9;
+    public static final int SALIR = 0;
 
     InvestigadorRepository investigadorRepository = new InvestigadorRepositoryImpl();
     InputInvestigadorService inputInvestigadorService = new InputInvestigadorServiceImpl(investigadorRepository);
@@ -42,6 +45,7 @@ public class MenuServiceImpl implements MenuService {
     InvestigadorService investigadorService = new InvestigadorServiceImpl(investigadorRepository);
     ExperimentoService experimentoService = new ExperimentoServiceImpl(experimentoRepository);
     SubMenuService subMenuService = new SubMenuServiceImpl(investigadorService, inputExperimentoQuimicoService, inputExperimentoFisicoService);
+    ArchivosInvestigadoresService archivosInvestigadoresService = new ArchivosInvestigadoresServiceImpl();
 
     @Override
     public void seleccionar() {
@@ -58,7 +62,8 @@ public class MenuServiceImpl implements MenuService {
             System.out.println("6 - Mostrar experimento de mayor duración");
             System.out.println("7 - Generar reporte de experimentos por consola");
             System.out.println("8 - Mostrar investigador con más experimentos");
-            System.out.println("9 - Salir");
+            System.out.println("9 - Exportar investigadores");
+            System.out.println("0 - Salir");
 
             opcion = InputUtils.inputIntPositivo("");
             this.ejecutar(opcion);
@@ -112,6 +117,10 @@ public class MenuServiceImpl implements MenuService {
             case MOSTRAR_INVESTIGADOR_MAS_EXPERIMENTOS -> {
                 System.out.println("El investigador con mayor cantidad de experimentos es:");
                 System.out.println(investigadorService.mayorCantidadExperimentos());
+            }
+
+            case EXPORTAR_INVESTIGADORES -> {
+                archivosInvestigadoresService.exportarCSV(investigadorRepository.obtenerInvestigadores());
             }
 
 
