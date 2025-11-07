@@ -29,7 +29,7 @@ public class ExperimentoServiceImpl implements ExperimentoService {
             for (Experimento experimento : experimentos) {
                 System.out.println(experimento.toString());
             }
-            System.out.println("\n\n");
+            System.out.println("\n");
         } else {
             System.out.println("Aún no hay experimentos registrados\n");
         }
@@ -49,9 +49,10 @@ public class ExperimentoServiceImpl implements ExperimentoService {
             System.out.printf(" - Total de experimentos exitosos: %d (%.2f%%)%n",
                     experimentosExitosos,
                     (double) experimentosExitosos*100/experimentos.size());
-            System.out.printf(" - Total de experimentos exitosos: %d (%.2f%%)%n",
+            System.out.printf(" - Total de experimentos fallidos: %d (%.2f%%)%n",
                     experimentosFallidos,
                     (double) experimentosFallidos*100/experimentos.size());
+            System.out.println("\n");
         } else {
             System.out.println("Aún no hay experimentos registrados\n");
         }
@@ -95,8 +96,7 @@ public class ExperimentoServiceImpl implements ExperimentoService {
             System.out.printf("La duración promedio de los experimentos es de %.2f minutos%n", promedio);
             System.out.printf("El porcentaje de exito global es de %.2f%%%n",
                     (double) experimentosExitosos*100/experimentos.size());
-
-
+            System.out.println("\n");
         } else {
             System.out.println("Aún no hay experimentos registrados\n");
         }

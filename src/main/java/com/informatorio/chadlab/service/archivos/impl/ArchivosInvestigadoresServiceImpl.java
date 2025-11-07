@@ -33,7 +33,7 @@ public class ArchivosInvestigadoresServiceImpl implements ArchivosInvestigadores
                 this.csvWriter.writeNext(data);
             }
 
-            System.out.println("Exportación exitosa!!!");
+            System.out.println("Exportación exitosa!!!\n");
             this.cerrarWriter();
 
         } catch (IOException e) {
