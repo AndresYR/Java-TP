@@ -9,4 +9,8 @@ public interface InvestigadorService {
 
     Investigador mayorCantidadExperimentos();
 
+    void mostrarInvestigadores();
+
+    void exportarCSV();
+
 }

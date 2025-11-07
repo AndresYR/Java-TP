@@ -1,10 +1,6 @@
 package com.informatorio.chadlab.service.menu.impl;
 
-import com.informatorio.chadlab.dominio.Experimento;
-import com.informatorio.chadlab.dominio.Investigador;
 import com.informatorio.chadlab.repository.investigador.InvestigadorRepository;
-import com.informatorio.chadlab.service.archivos.ArchivosInvestigadoresService;
-import com.informatorio.chadlab.service.archivos.impl.ArchivosInvestigadoresServiceImpl;
 import com.informatorio.chadlab.service.experimento.ExperimentoService;
 import com.informatorio.chadlab.service.input.InputExperimentoFisicoService;
 import com.informatorio.chadlab.service.input.InputExperimentoQuimicoService;
@@ -14,34 +10,28 @@ import com.informatorio.chadlab.service.menu.MenuService;
 import com.informatorio.chadlab.service.menu.SubMenuService;
 import com.informatorio.chadlab.utils.InputUtils;
 
-import java.util.List;
-
 public class MenuServiceImpl implements MenuService {
 
-    private InvestigadorRepository investigadorRepository;
     private InputInvestigadorService inputInvestigadorService;
     private InputExperimentoQuimicoService inputExperimentoQuimicoService;
     private InputExperimentoFisicoService inputExperimentoFisicoService;
     private InvestigadorService investigadorService;
     private ExperimentoService experimentoService;
     private SubMenuService subMenuService;
-    private ArchivosInvestigadoresService archivosInvestigadoresService;
 
 
-    public MenuServiceImpl(InvestigadorRepository investigadorRepository,
-                           InputInvestigadorService inputInvestigadorService,
+
+    public MenuServiceImpl(InputInvestigadorService inputInvestigadorService,
                            InputExperimentoQuimicoService inputExperimentoQuimicoService,
                            InputExperimentoFisicoService inputExperimentoFisicoService,
                            InvestigadorService investigadorService,
                            ExperimentoService experimentoService) {
-        this.investigadorRepository = investigadorRepository;
         this.inputInvestigadorService = inputInvestigadorService;
         this.inputExperimentoQuimicoService = inputExperimentoQuimicoService;
         this.inputExperimentoFisicoService = inputExperimentoFisicoService;
         this.investigadorService = investigadorService;
         this.experimentoService = experimentoService;
         this.subMenuService = new SubMenuServiceImpl(investigadorService, inputExperimentoQuimicoService, inputExperimentoFisicoService);
-        this.archivosInvestigadoresService = new ArchivosInvestigadoresServiceImpl();
     }
 
     //Opciones
@@ -93,13 +83,7 @@ public class MenuServiceImpl implements MenuService {
             }
 
             case MOSTRAR_INVESTIGADORES -> {
-                List<Investigador> investigadores = investigadorRepository.obtenerInvestigadores();
-
-                System.out.println("INVESTIGADORES:");
-                for (int i = 0; i < investigadores.size(); i++) {
-                    System.out.println(i+1 + " - " + investigadores.get(i).getNombre());
-                }
-                System.out.println("\n");
+                investigadorService.mostrarInvestigadores();
             }
 
             case MOSTRAR_EXPERIMENTOS -> {
@@ -111,16 +95,7 @@ public class MenuServiceImpl implements MenuService {
             }
 
             case MOSTRAR_EXPERIMENTO_MAYOR_DURACION -> {
-                Experimento mayorDuracion = experimentoService.mayorDuracion();
-                if (mayorDuracion != null) {
-                    System.out.println("EXPERIMENTO DE MAYOR DURACION");
-                    System.out.printf("Tipo: %s - Nombre: %s - Duración: %d - Exito: %b%n",
-                            mayorDuracion.getTipo(),
-                            mayorDuracion.getNombre(),
-                            mayorDuracion.getDuracion(),
-                            mayorDuracion.isExitoso());
-                    System.out.println("\n");
-                }
+                experimentoService.mostrarExperimentoMayorDuracion();
             }
 
             case REPORTE_CONSOLA -> {
@@ -134,7 +109,7 @@ public class MenuServiceImpl implements MenuService {
             }
 
             case EXPORTAR_INVESTIGADORES -> {
-                archivosInvestigadoresService.exportarCSV(investigadorRepository.obtenerInvestigadores());
+                investigadorService.exportarCSV();
             }
 
 

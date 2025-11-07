@@ -13,7 +13,6 @@ public class    App
         GestorLaboratorio gestorLaboratorio = new GestorLaboratorio();
 
         MenuService menuService = new MenuServiceImpl(
-                gestorLaboratorio.getInvestigadorRepository(),
                 gestorLaboratorio.getInputInvestigadorService(),
                 gestorLaboratorio.getInputExperimentoQuimicoService(),
                 gestorLaboratorio.getInputExperimentoFisicoService(),

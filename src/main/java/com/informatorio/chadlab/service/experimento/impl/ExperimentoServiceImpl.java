@@ -72,8 +72,7 @@ public class ExperimentoServiceImpl implements ExperimentoService {
     }
 
 
-    @Override
-    public Experimento mayorDuracion() {
+    private Experimento mayorDuracion() {
         List<Experimento> experimentos = this.experimentoRepository.obtenerExperimentos();
 
         if (!experimentos.isEmpty()) {
@@ -83,6 +82,20 @@ public class ExperimentoServiceImpl implements ExperimentoService {
         }
         System.out.println("Aún no hay experimentos registrados\n");
         return null;
+    }
+
+    @Override
+    public void mostrarExperimentoMayorDuracion() {
+        Experimento mayorDuracion = this.mayorDuracion();
+        if (mayorDuracion != null) {
+            System.out.println("EXPERIMENTO DE MAYOR DURACION");
+            System.out.printf("Tipo: %s - Nombre: %s - Duración: %d - Exito: %b%n",
+                    mayorDuracion.getTipo(),
+                    mayorDuracion.getNombre(),
+                    mayorDuracion.getDuracion(),
+                    mayorDuracion.isExitoso());
+            System.out.println("\n");
+        }
     }
 
     @Override
